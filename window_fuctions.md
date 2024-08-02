@@ -85,7 +85,7 @@ Display the resulting DataFrame.
 
 ```python
 # Show the result
-df_with_row_num.show()
+df_most_recent.show()
 ```
 
 ### Complete Code Example
