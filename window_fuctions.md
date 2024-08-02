@@ -126,7 +126,9 @@ df_most_recent = df_with_row_num.filter(col("row_num") == 1)
 df_most_recent.show()
 ```
 
-### View of df_with_row_num before filter
+### View before filter
+
+df_with_row_num
 
 ```python
 +-------+-------------------+-------+
@@ -140,7 +142,9 @@ df_most_recent.show()
 +-------+-------------------+-------+
 ```
 
-### Expected Output after filter - df_most_recent
+### Expected Output
+
+df_most_recent
 
 ```python
 +-------+-------------------+-------+
