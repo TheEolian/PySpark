@@ -70,8 +70,16 @@ Use the row_number function with the window specification to add a new column ca
 # Add row number column
 df_with_row_num = df.withColumn("row_num", row_number().over(window_spec))
 ```
+#### Step 6: Filter to Keep Only Row Number 1
 
-#### Step 6: Show the Result
+Filter the DataFrame to keep only the rows where row_num equals 1.
+
+```python
+# Filter to keep only the most recent transaction for each offer_id
+df_most_recent = df_with_row_num.filter(col("row_num") == 1)
+```
+
+#### Step 7: Show the Result
 
 Display the resulting DataFrame.
 
@@ -111,11 +119,14 @@ window_spec = Window.partitionBy("offr_id").orderBy(col("transaction_dt_time").d
 # Add row number column
 df_with_row_num = df.withColumn("row_num", row_number().over(window_spec))
 
+# Filter to keep only the most recent transaction for each offer_id
+df_most_recent = df_with_row_num.filter(col("row_num") == 1)
+
 # Show the result
-df_with_row_num.show()
+df_most_recent.show()
 ```
 
-### Expected Output
+### View with row_num
 
 ```python
 +-------+-------------------+-------+
@@ -126,6 +137,17 @@ df_with_row_num.show()
 | offer1|2023-08-01 09:00:00|      3|
 | offer2|2023-08-02 10:00:00|      1|
 | offer2|2023-08-02 09:00:00|      2|
++-------+-------------------+-------+
+```
+
+### Expected Output
+
+```python
++-------+-------------------+-------+
+|offr_id|transaction_dt_time|row_num|
++-------+-------------------+-------+
+| offer1|2023-08-01 11:00:00|      1|
+| offer2|2023-08-02 10:00:00|      1|
 +-------+-------------------+-------+
 ```
 
@@ -149,6 +171,10 @@ Window.partitionBy("offr_id"):
 .orderBy(col("transaction_dt_time").desc()):
 
 - Orders rows within each partition by the transaction_dt_time column in descending order. By following these steps, you can effectively use the row_number function with a window specification to add a new column to your DataFrame in PySpark.
+
+.filter(col("row_num") == 1):
+
+- Keeps only the rows where row_num is equal to 1, which corresponds to the most recent transaction for each offr_id.
 
 ### Additional Resources
 [PySpark Documentation](https://spark.apache.org/docs/latest/api/python/)
