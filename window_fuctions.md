@@ -148,8 +148,7 @@ Window.partitionBy("offr_id"):
 
 .orderBy(col("transaction_dt_time").desc()):
 
--Orders rows within each partition by the transaction_dt_time column in descending order.
-By following these steps, you can effectively use the row_number function with a window specification to add a new column to your DataFrame in PySpark.
+- Orders rows within each partition by the transaction_dt_time column in descending order. By following these steps, you can effectively use the row_number function with a window specification to add a new column to your DataFrame in PySpark.
 
 ### Additional Resources
 [PySpark Documentation](https://spark.apache.org/docs/latest/api/python/)
